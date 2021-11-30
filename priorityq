@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define SIZE 50
+#define SIZE 5
 
 int r=-1,f=-1,ar[SIZE];
 int val;
@@ -26,12 +26,12 @@ int check (int x)
     {
         if(x<=ar[i]){
             p=i;
+        break;
         }
-        else{
-            p=r;
-        }
+        else
+            p=r+1;
     }
-    return p;
+return p;
 }
 
 void enqueue()
@@ -43,20 +43,24 @@ void enqueue()
     {
         f=0;
         r=0;
-        printf("enter element");
+        printf("enter element:");
         scanf("%d",&val);
         ar[f]=val;
+        printf("%d is enqueued",val);
     }
-    else{
-        printf("enter element");
+    else
+        {
+        printf("enter element:");
         scanf("%d",&val);
         int pr=check(val);
-        for(int j=r; j>=pr; j--){
+        for(int j=r; j>=pr; j--)
+            {
             ar[j+1]=ar[j];
-        }
+            }
         ar[pr]=val;
-    }
-    r++;
+        r++;
+        printf("%d is enqueued",val);
+        }
 }
 
 void dequeue()
