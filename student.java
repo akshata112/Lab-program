@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class Main
 {
     String name;
@@ -11,31 +9,45 @@ public class Main
     Main (String s, String id){
         name=s;
         USN=id;
+    }
+    static void accept(Main s){
+        
         for(int i=0; i<5; i++)
         {
             Scanner in=new Scanner(System.in);
-            System.out.println("credit and mark in all 5 subjects are");
-            credits[i]=in.nextInt();
-            marks[i]=in.nextInt();
+            System.out.println("Enter credit and mark in subject "+(i+1));
+            s.credits[i]=in.nextInt();
+            s.marks[i]=in.nextInt();
         }
     }
-    static calsgpa(){
+    static void display(Main s){
+        
+            System.out.println("Name:"+s.name);
+            System.out.println("USN:"+s.USN);
+            for(int j=0; j<5; j++)
+        {
+            int a=j+1;
+            System.out.println("subject "+a+":  credit:"+s.credits[j]+" mark:"+s.marks[j]);  
+        }
+    }
+    static void calsgpa(Main s){
         int sum=0,tot=0,totcredits=0;
         for (int j=0;j<5;j++ )
         {
-            tot=credits[j]*marks[j];
+            tot=s.credits[j]*s.marks[j];
             sum=sum+tot;
-            totcredits=totcredits+credits[j];
+            totcredits=totcredits+s.credits[j];
             tot=0;
         }
-        sgpa=sum/(totcredits*10);
+        sgpa=sum/(totcredits);
         System.out.println("sgpa of a student is "+sgpa);
     }
-	public static void main(String[] args) {
+
+        public static void main(String[] args) {
 	    
-	    Main s1 = new Main("aksh","3a008");
-        System.out.println(s1.name);
-        System.out.println(s1.USN);
-        calsgpa();
+	    Main s1 = new Main("Akshata","3a008");
+	    accept(s1);
+        display(s1);
+        calsgpa(s1);
 	}
 }
