@@ -1,3 +1,4 @@
+        import java.util.*;
 public class Main
 {
     String name;
@@ -11,13 +12,16 @@ public class Main
         USN=id;
     }
     static void accept(Main s){
-        
+        Scanner in=new Scanner(System.in);
+        System.out.println("Enter credit and mark obtained");
         for(int i=0; i<5; i++)
         {
-            Scanner in=new Scanner(System.in);
-            System.out.println("Enter credit and mark in subject "+(i+1));
+            System.out.println("subject "+(i+1));
+            System.out.print("credit : ");
             s.credits[i]=in.nextInt();
+            System.out.print("marks : ");
             s.marks[i]=in.nextInt();
+            System.out.println();
         }
     }
     static void display(Main s){
@@ -46,7 +50,7 @@ public class Main
         public static void main(String[] args) {
 	    
 	    Main s1 = new Main("Akshata","3a008");
-	    accept(s1);
+	accept(s1);
         display(s1);
         calsgpa(s1);
 	}
