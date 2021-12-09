@@ -35,7 +35,7 @@ public class Main
         }
     }
     static void calsgpa(Main s){
-        int sum=0,tot=0,totcredits=0;
+        double sum=0,tot=0,totcredits=0;
         for (int j=0;j<5;j++ )
         {
             tot=s.credits[j]*s.marks[j];
@@ -49,7 +49,12 @@ public class Main
 
         public static void main(String[] args) {
 	    
-	    Main s1 = new Main("Akshata","3a008");
+	Scanner scan=new Scanner(System.in);
+	    System.out.println("Enter name and USN of student :");
+	    String stud_name=scan.nextLine();
+	    String stud_USN=scan.nextLine();
+	    
+	    Main s1 = new Main(stud_name,stud_USN);
 	accept(s1);
         display(s1);
         calsgpa(s1);
