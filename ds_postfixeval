@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <ctype.h>
+#define SIZE 50
+char ar[SIZE];
+int top=-1;
+void push(int value)
+{
+    ar[++top]=value;
+}
+int pop()
+{
+    return (ar[top--]);
+}
+
+int main()
+{
+    char exp[50];
+    int i=0,n1,n2,n,res;
+    printf("enetr string");
+    scanf("%s",exp);
+    while(exp[i] != '\0')
+    {
+        if(isdigit(exp[i])){
+            n=exp[i]-48;
+            push(n);
+        }
+        else{
+            n1=pop();
+            n2=pop();
+            switch(exp[i])
+            {
+                case '+':
+                res=n2+n1;
+                break;
+                case '-':
+                res=n2-n1;
+                break;
+                case '*':
+                res=n2*n1;
+                break;
+                case '/':
+                res=n2/n1;
+                break;
+            }
+        push(res);
+        }
+     i++;
+    }
+    printf("result is %d",pop());
+return 0;    
+}
