@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
+#define SIZE 60
+char ar[SIZE];
+int top=-1;
+void push(char a)
+{
+    if(top==SIZE-1){
+        printf("ínvalid");
+    }
+        else{
+         top=top+1;
+         ar[top]=a;
+        }
+}
+char pop()
+{
+    if(top==-1){
+        printf("stack is empty");
+        return -1;
+    }
+        else{
+            char x=ar[top];
+            top=top-1;
+            return x;
+        }
+}
+
+int balance(char a,char b){
+    if(a=='(' && b==')')
+        return 1;
+    if(a=='[' && b==']')
+        return 1;
+    if(a=='{' && b=='}')
+        return 1;
+    else
+        return 0;
+}
+
+int check(char s[]){
+    for(int i=0;i<strlen(s);i++){
+        if(s[i]=='[' || s[i]=='('|| s[i]=='{'){
+            push(s[i]);
+        }
+        else if (s[i]==']' || s[i]==')'|| s[i]=='}')
+        {
+            if(top==-1){
+                printf("more right para \n invalid");
+                return 0;
+            }
+            else {
+                char temp=pop();
+                if(balance(temp,s[i])==0)
+                    {
+                    printf("invalid");
+                    return 0;
+                }
+                }
+        }
+    }
+    if(top==-1){
+        printf("balanced");
+        return 1;
+    }
+    else{
+        printf("more left para \ninvalid");
+        return 0;
+    }
+}
+
+int main()
+{
+   char str[SIZE];
+   printf("enter the exp");
+   gets(str);
+   check(str);
+   return 0;
+}
+   
