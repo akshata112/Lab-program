@@ -1,17 +1,17 @@
         import java.util.*;
-public class Main
+public class student
 {
   String name;
   String USN;
   static int credits[],marks[];
   static double sgpa;
 
-    Main (String s, String id)
+    student (String s, String id)
   {
     name = s;
     USN = id;
   }
-  static void accept (Main s, int num)
+  static void accept (student s, int num)
   {
     Scanner in = new Scanner (System.in);
     System.out.println ("Enter credit and mark obtained ");
@@ -25,7 +25,7 @@ public class Main
 	System.out.println ();
       }
   }
-  static void display (Main s, int num)
+  static void display (student s, int num)
   {
 
     System.out.println ("Name:" + s.name);
@@ -37,7 +37,7 @@ public class Main
 			    " mark:" + s.marks[j]);
       }
   }
-  static void calsgpa (Main s, int num)
+  static void calsgpa (student s, int num)
   {
     double sum = 0, tot = 0, totcredits = 0;
     for (int j = 0; j < num; j++)
@@ -58,7 +58,7 @@ public class Main
     System.out.println ("Enter name and USN of student :");
     String stud_name = scan.nextLine ();
     String stud_USN = scan.nextLine ();
-    Main s1 = new Main (stud_name, stud_USN);
+    student s1 = new student (stud_name, stud_USN);
     System.out.println ("Enter no of subjects");
     int n = scan.nextInt ();
     credits= new int[n];
