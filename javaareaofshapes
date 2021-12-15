@@ -1,4 +1,4 @@
-import java.lang.*;
+import java.util.*;
 
 class shape{
 static double d1,d2;
@@ -21,7 +21,7 @@ rectangle(double a,double b)
 super(a,b);
 }
 static double area(){
-System.out.println("Area of the triangle is  " +(d1*d2));
+System.out.println("Area of the rectangle is  " +(d1*d2));
 return 0;
 }
 }
@@ -49,13 +49,24 @@ return 0;
 
 class Main{
     static public void main(String[] args){
-        shape shape1=new shape(-1,-1);
+        Scanner in=new Scanner(System.in);
+        System.out.println("Enter dimensions :");
+        double a=in.nextInt();
+        shape shape1=new shape(a,a);
         shape.area();
-        rectangle shape2=new rectangle(5,6);
+        System.out.println("Enter dimensions of rectangle length and width");
+        double l=in.nextInt();
+        double w=in.nextInt();
+        rectangle shape2=new rectangle(l,w);
         rectangle.area();
-        triangle shape3=new triangle(10,5);
+        System.out.println("Enter dimensions of triangle base and height :");
+        double b=in.nextInt();
+        double h=in.nextInt();
+        triangle shape3=new triangle(b,h);
         triangle.area();
-        circle shape4=new circle(7);
+        System.out.println("Enter radius of circle :");
+        double r=in.nextInt();
+        circle shape4=new circle(r);
         circle.area();
     }
 } 
@@ -63,4 +74,4 @@ class Main{
 
 
 
-
+    
