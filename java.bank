@@ -1,0 +1,98 @@
+import java.util.*;
+class bank{
+    static String name;
+    static int acc_num;
+    static double bal;
+    
+    bank(String name,int acc_num,double bal){
+        this.name=name;
+        this.acc_num=acc_num;
+        this.bal=bal;
+    }
+    static void display(){
+         System.out.println("Name:"+name+"\naccount number:"+acc_num+"\nbalence:"+bal);
+     }
+    static void accept(){
+        Scanner a=new Scanner(System.in);
+        double deposit;
+        System.out.print("\nIf you wish \nEnter amount to be deposited:");
+        deposit=a.nextDouble();
+        bal=bal+deposit;
+        System.out.println("Total balance:"+bal);
+    }
+    static void withdraw()
+    {
+        Scanner o=new Scanner(System.in);
+        System.out.print("\nIf you wish to withdraw \nEnter ammount to be withdrawn:");
+        double cash=o.nextDouble();
+    if(bal<cash){
+        System.out.println("insufficient balanceto withdraw");
+    }
+    else{
+        bal=bal-cash;
+        System.out.println("Available balance:"+bal);
+    }   
+    
+}
+}
+class current extends bank{
+    current(String name,int acc_num,double bal){
+        super(name,acc_num,bal);
+    }
+    static void checkbal(current c){
+        System.out.println("\n****Your account status**** \nMinimum balance must be 1000");
+        if(c.bal<1000){
+            double service_charge=200;
+            c.bal=c.bal-service_charge;
+            System.out.println("Balance:"+c.bal);
+        }
+        else{
+            System.out.println("Sufficient Balance");
+        }
+    }
+}
+
+class savings extends bank{
+    savings(String name,int acc_num,double bal){
+        super(name,acc_num,bal);
+    }
+    static void interest(savings s){
+        Scanner sc=new Scanner(System.in);
+        System.out.println("\nTo calculate CI for balance for t years \nEnter number of years \nrate of interest \nno of times interest applied");
+        int t=sc.nextInt();
+        float r=sc.nextFloat();
+        int n=sc.nextInt();
+        double ci=s.bal*(Math.pow((1+r/n),(n*t)));
+        s.bal=ci;
+        System.out.println("Total balance:"+s.bal);
+    }
+}
+
+class Main{
+    public static void main(String[] args){
+        Scanner in=new Scanner(System.in);
+        System.out.println("Enter account holder name and account number");
+        String n=in.nextLine();
+        int num=in.nextInt();
+        System.out.print("Enter current balance:");
+        double balance=in.nextDouble();
+        System.out.print("Enter type\n1 savings \n2 current \naccount:");
+        int choice=in.nextInt();
+        if(choice==1){
+            System.out.println("****Your savings account****");
+            savings b1=new savings(n,num,balance);
+            b1.display();
+            b1.accept();
+            b1.interest(b1);
+            b1.withdraw();
+        }
+        else if(choice==2){
+            System.out.println("****Your current account****");
+            current b2=new current(n,num,balance);
+            b2.display();
+            b2.accept();
+            b2.withdraw();
+            b2.checkbal(b2);
+        }
+    }
+}
