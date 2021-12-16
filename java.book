@@ -1,29 +1,29 @@
-/*Create a class
-Book which contains four members: name, author, price, num_pages. Include a
-constructor to set the values for the members. Include methods to set and get
-the details of the objects. Include a toString( ) method that could display
-the complete details of the book. Develop a Java program to create n book
-objects.
-
-*******************************************************************************/
 import java.util.*;
-class book{
+class Main{
     String name,author;
     int price,numofpages;
     
-    book(String bk,String a,int p,int n){
-        name=bk;
-        author=a;
-        price=p;
-        numofpages=n;
+    Main(String bk,String a,int p,int n){
+        this.name=bk;
+        this.author=a;
+        this.price=p;
+        this.numofpages=n;
     }
     
-    static void get(int no){
+    public static void main(String args[]){
+        Scanner in=new Scanner(System.in);
+        System.out.print("Enter number of books:");
+        int n=in.nextInt();
+        getandset(n);
+    }
+    static void getandset(int a){
         Scanner out=new Scanner(System.in);
-        for(int i=1;i<=no;i++)
+        Main b[]=new Main[a];
+        System.out.println("Enter book details");
+        for(int j=0;j<a;j++)
         {
-            System.out.println("Eter book details");
-            System.out.print("Book name:");
+            System.out.println(""+(j+1)+" ");
+            System.out.print("Bookname:");
             String book_name=out.nextLine();
             System.out.print("author:");
             String author_name=out.nextLine();
@@ -31,26 +31,21 @@ class book{
             int book_price=out.nextInt();
             System.out.print("number of pages:");
             int num_of_pages=out.nextInt();
-            book b[i]=new book(book_name,author_name,book_price,num_of_pages);
+            b[j]=new Main(book_name,author_name,book_price,num_of_pages);
         }
+        System.out.println("\nDetails of all the books");
+        for(int j=0;j<a;j++)
+        {
+            System.out.println(b[j]);
+        }
+        
+            
+    }
+        
+    
+    public String toString()
+    {
+        return "book_name:"+name+"\nauthor:"+author+"\nprice:"+price+"\nnum_of_pages:"+numofpages;
     }
     
-    static void display(int no){
-        
-        for(int i=1;i<=no;i++){
-            System.out.println("book name: "+b[i].name);
-            System.out.println("author: "+b[i].author);
-            System.out.println("price: "+b[i].price);
-            System.out.println("No. of pages: "+b[i].numofpages);
-        }
-    }
-}
-public class Main{
-    public static void main(String[] args){
-        Scanner in=new Scanner(System.in);
-        System.out.System.out.println("Enter no of books:");
-        int n=in.nextInt();
-        get(n);
-        display(n);
-    }
 }
