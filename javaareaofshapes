@@ -1,77 +1,97 @@
+
 import java.util.*;
 
-class shape{
-static double d1,d2;
-
-shape(double a,double b){
-d1=a;
-d2=b;
-}
-
-static double area() {
-System.out.println("Dimension of the Figure is undefined.");
-return 0;
-}
-}
-
-class rectangle extends shape{
-
-rectangle(double a,double b)
+abstract class shape
 {
-super(a,b);
+  static double d1, d2;
+
+    shape (double a, double b)
+  {
+    d1 = a;
+    d2 = b;
+  }
+
+  abstract double area ();
 }
-static double area(){
-System.out.println("Area of the rectangle is  " +(d1*d2));
-return 0;
-}
+
+class rectangle extends shape
+{
+
+  rectangle (double a, double b)
+  {
+    super (a, b);
+  }
+  double area ()
+  {
+    System.out.println ("Area of the rectangle is  " + (d1 * d2));
+    return 0;
+  }
 }
 
 
-class triangle extends shape{
-triangle(double a,double b){
-super(a,b);
-}
-static double area(){
-System.out.println("Area of the triangle is  "+(d1*d2/2));
-return 0;
-}
-}
-
-class circle extends shape{
-circle(double a){
-super(a,a);
-}
-static double area(){
-System.out.println("Area of the circle is  " +(3.14*d1*d2));
-return 0;
-}
+class triangle extends shape
+{
+  triangle (double a, double b)
+  {
+    super (a, b);
+  }
+  double area ()
+  {
+    System.out.println ("Area of the triangle is  " + (d1 * d2 / 2));
+    return 0;
+  }
 }
 
-class Main{
-    static public void main(String[] args){
-        Scanner in=new Scanner(System.in);
-        System.out.println("Enter dimensions :");
-        double a=in.nextInt();
-        shape shape1=new shape(a,a);
-        shape.area();
-        System.out.println("Enter dimensions of rectangle length and width");
-        double l=in.nextInt();
-        double w=in.nextInt();
-        rectangle shape2=new rectangle(l,w);
-        rectangle.area();
-        System.out.println("Enter dimensions of triangle base and height :");
-        double b=in.nextInt();
-        double h=in.nextInt();
-        triangle shape3=new triangle(b,h);
-        triangle.area();
-        System.out.println("Enter radius of circle :");
-        double r=in.nextInt();
-        circle shape4=new circle(r);
-        circle.area();
-    }
-} 
+class circle extends shape
+{
+  circle (double a)
+  {
+    super (a, a);
+  }
+  double area ()
+  {
+    System.out.println ("Area of the circle is  " + (3.14 * d1 * d2));
+    return 0;
+  }
+}
 
-
-
+class Main
+{
+  static public void main (String[]args)
+  {
+    Scanner in = new Scanner (System.in);
+    shape s;
+      System.out.
+      println ("Enter your choice \n1 rectangle \n2 triangle \n3 circle ");
+    int ch = in.nextInt ();
+    switch (ch)
+      {
+      case 1:
+	System.out.println ("Enter dimensions of rectangle length and width");
+	double l = in.nextInt ();
+	double w = in.nextInt ();
+	rectangle shape1 = new rectangle (l, w);
+	  s = shape1;
+	  s.area ();
+	  break;
+	case 2:System.out.
+	  println ("Enter dimensions of triangle base and height :");
+	double b = in.nextInt ();
+	double h = in.nextInt ();
+	triangle shape2 = new triangle (b, h);
+	  s = shape2;
+	  s.area ();
+	  break;
+	case 3:System.out.println ("Enter radius of circle :");
+	double r = in.nextInt ();
+	circle shape3 = new circle (r);
+	  s = shape3;
+	  s.area ();
+	  break;
+	default:System.out.println ("Invalid choice");
+	  break;
+      }
+  }
+}
 
     
