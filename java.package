@@ -1,0 +1,45 @@
+package CIE;
+import java.util.*;
+
+class student{
+String usn,name;
+int sem;
+
+public info(student s){
+Scanner in=new Scanner(System.in);
+System.out.println("Enter usn and name:");
+s.usn=in.nextLine();
+s.name=in.nextLine();
+System.out.print("Sem:");
+s.sem=in.nextInt();
+}
+
+class internals extends student{
+int marks[5];
+
+public get(student st){
+for(int i=0;i<5;i++){
+Scanner sc=new Scanner(System.in);
+System.out.println("Enter marks in subject :"+(i+1));
+s.marks[i]=in.nextLine();
+}
+}
+
+class mystudent{
+public static void main(String args[]){
+Scanner out=new Scanner(System.in);
+System.out.println("Enter no of stuudent:");
+int num=out.nextInt();
+student s[num];
+for(int j=0;j<num;j++){
+student s[j]=new student();
+internals i[j]=new internals();
+s[j].info(s[j]);
+i[j].get(s[j]);
+}
+}
+}
+
+
+
+
