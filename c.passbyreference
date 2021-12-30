@@ -1,0 +1,204 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <malloc.h>
+#include <conio.h>
+struct student{
+    int id;
+    struct student *next;
+};
+
+struct student* create()
+{
+    struct student *newstudent;
+    newstudent=(struct student*)malloc(sizeof(struct student));
+    return newstudent;
+}
+
+//insertion in the beginning
+    void push(int studid,struct student **head)
+{
+    struct student *newstudent;
+    newstudent=create();
+    newstudent->id=studid;
+    newstudent->next=NULL;
+    if((*head)==NULL)
+        *head=newstudent;
+    else{
+        newstudent->next=*head;
+        *head=newstudent;
+    }
+}
+
+//deletion from the front
+void pop(struct student **head)
+{
+    struct student *temp;
+    if((*head)==NULL)
+        printf("Empty list");
+    else{
+        temp=*head;
+        (*head)=temp->next;
+        free(temp);
+    }
+}
+
+//insertion at the end 
+void append(int studid,struct student **head)
+{
+    struct student *newstudent,*temp;
+    newstudent=create();
+    newstudent->id=studid;
+    newstudent->next=NULL;
+    if((*head)==NULL)
+        *head=newstudent;
+    else{
+        temp=*head;
+        while(temp->next!=NULL)
+            temp=temp->next;
+    temp->next=newstudent;
+    }
+}
+
+//deletion at the end
+void end(struct student **head)
+{
+    struct student *prev,*temp;
+    if(temp==NULL)
+        printf("Empty list");
+    else if((*head)->next==NULL){
+        free(*head);
+        *head=NULL;
+    }
+    else{
+        temp=*head;
+        while(temp->next!=NULL){
+            prev=temp;
+            temp=temp->next;
+        }
+        prev->next=NULL;
+        free(temp);
+    }
+}
+
+//insertion at the given position
+void insert(int studid,struct student **head)
+{
+    int pos;
+    struct student *newstudent,*temp;
+    newstudent=create();
+    newstudent->id=studid;
+    newstudent->next=NULL;
+    printf("enter the position:");
+    scanf("%d",&pos);
+    if(*head==NULL && pos==1)
+        {
+        *head=newstudent;
+        printf("%d is inserted at 1st position\n",studid);
+        }
+    else{
+        temp=*head;
+        for(int i=1;i<pos-1;i++)
+            {
+                temp=temp->next;
+                if(temp==NULL){
+                    printf("Invalid position\n");
+                    return;
+                }
+            }
+        newstudent->next=temp->next;
+        temp->next=newstudent;
+        printf("%d is inserted at position %d \n",studid,pos);
+        }
+}
+//deletion from the given position
+void deletepos(struct student **head)
+{
+    struct student *prev,*temp;
+    int pos;
+    if(*head==NULL)
+        printf("Empty list");
+    else{
+        temp=*head;
+        printf("enter the position:");
+        scanf("%d",&pos);
+        if(pos==1){
+            temp=*head;
+            *head=(*head)->next;
+            free(temp);
+        }
+        else{
+        for(int i=0;i<pos-1;i++){
+            prev=temp;
+            temp=temp->next;
+            if(temp==NULL){
+                printf("invalid position\n");
+                return;
+            }
+        }
+        prev->next=temp->next;
+        free(temp);
+        }
+}
+}
+
+void display(struct student *head)
+{
+    struct student *temp;
+    temp=head;
+    if(head==NULL)
+        printf("no elements to display\n");
+    while(temp!=NULL){
+        printf("%d\n",temp->id);
+        temp=temp->next;
+    }
+}
+
+int main()
+{
+    int ch,student_id;
+    struct node *head=NULL;
+    
+    printf("\nenter \n1 to push \n2 to append \n3 to insert at a position \n4 to pop \n5 to delete from end \n6 to delete frpm position \n7 to display \n0 to exit\n");
+    while(1)
+    {
+       printf("\nchoice:");
+       scanf("%d",&ch);
+       switch(ch)
+       {
+           case 1:
+           printf("enter id:");
+           scanf("%d",&student_id);
+           push(student_id,&head);
+           break;
+           case 2:
+           printf("enter id:");
+           scanf("%d",&student_id);
+           append(student_id,&head);
+           break;
+           case 3:
+           printf("enter id:");
+           scanf("%d",&student_id);
+           insert(student_id,&head);
+           break;
+           case 4:
+           pop(&head);
+           break;
+           case 5:
+           end(&head);
+           break;
+           case 6:
+           deletepos(&head);
+           break;
+           case 7:
+           display(head);
+           break;
+           case 0:
+           exit(0);
+           break;
+           default:
+           printf("invalid choice entry");
+           break;
+       }
+    }
+return 0;
+}
