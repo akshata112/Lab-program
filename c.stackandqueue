@@ -1,0 +1,140 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <malloc.h>
+#include <conio.h>
+struct node{
+    int id;
+    struct node *next;
+};
+struct node *shead,*qhead;
+struct node* create()
+{
+    struct node *newnode;
+    newnode=(struct node*)malloc(sizeof(struct node));
+    return newnode;
+}
+
+//insertion to the stack
+    void push(int data)
+{
+    struct node *newnode;
+    newnode=create();
+    newnode->id=data;
+    newnode->next=NULL;
+    if((shead)==NULL)
+        shead=newnode;
+    else{
+        newnode->next=shead;
+        shead=newnode;
+    }
+}
+
+//deletion from the stack
+void pop()
+{
+    struct node *temp;
+    if(shead==NULL)
+        printf("Stack is empty");
+    else{
+        temp=shead;
+        shead=temp->next;
+        free(temp);
+    }
+}
+
+//insertion to the queue
+void append(int data)
+{
+    struct node *newnode,*temp;
+    newnode=create();
+    newnode->id=data;
+    newnode->next=NULL;
+    if(qhead==NULL)
+        qhead=newnode;
+    else{
+        temp=qhead;
+        while(temp->next!=NULL)
+            temp=temp->next;
+    temp->next=newnode;
+    }
+}
+
+//deletion from the queue
+void end()
+{
+    struct node *prev,*temp=qhead;
+    if(temp==NULL)
+        printf("Queue is empty");
+    else if(qhead->next==NULL){
+        free(qhead);
+        qhead=NULL;
+    }
+    else{
+        temp=qhead;
+        while(temp->next!=NULL){
+            prev=temp;
+            temp=temp->next;
+        }
+        prev->next=NULL;
+        free(temp);
+    }
+}
+
+
+void display(struct node *head)
+{
+    struct node *temp;
+    temp=head;
+    if(head==NULL)
+        printf("no elements to display\n");
+    while(temp!=NULL){
+        printf("%d\n",temp->id);
+        temp=temp->next;
+    }
+}
+
+int main()
+{
+    int ch,data;
+    
+    printf("\nenter \n1 to push to stack \n2 to delete from stack \n3 to insert into the queue  \n4 to delete from the queue \n5 to display stack \n6 to display queue \n0 to exit\n");
+    while(1)
+    {
+       printf("\nchoice:");
+       scanf("%d",&ch);
+       switch(ch)
+       {
+           case 1:
+           printf("enter id:");
+           scanf("%d",&data);
+           push(data);
+           break;
+           case 2:
+           pop();
+           break;
+           case 3:
+           printf("enter id:");
+           scanf("%d",&data);
+           append(data);
+           break;
+           case 4:
+           end();
+           break;
+           case 5:
+           printf("Stack\n");
+           display(shead);
+           break;
+           case 6:
+           printf("Queue\n");
+           display(qhead);
+           break;
+           case 0:
+           exit(0);
+           break;
+           default:
+           printf("invalid choice entry");
+           break;
+       }
+    }
+return 0;
+}
