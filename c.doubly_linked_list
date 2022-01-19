@@ -1,0 +1,210 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <malloc.h>
+
+struct node *head;
+struct node{
+    struct node *prev;
+    int data;
+    struct node *next;
+};
+
+struct node* create(int num){
+    struct node* newnode;
+    newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->data=num;
+    newnode->prev=NULL;
+    newnode->next=NULL;
+    return newnode;
+}
+
+void push(int num)
+{
+    struct node *newnode;
+    newnode=create(num);
+    if(head==NULL)
+        head=newnode;
+    else{
+        newnode->next=head;
+        head->prev=newnode;
+        head=newnode;
+    }
+}
+
+void append(int num){
+    struct node *newnode,*temp=head;
+    newnode=create(num);
+    if(head==NULL)
+        head=newnode;
+    else{
+        while(temp->next!=NULL){
+            temp=temp->next;
+        }
+        newnode->prev=temp;
+        temp->next=newnode;
+        
+    }
+}
+
+void insert(int num){
+    struct node *newnode,*temp=head;
+    int pos;
+    newnode=create(num);
+    printf("Enter the position:");
+    scanf("%d",&pos);
+    if(head==NULL){
+        head=newnode;
+        return;
+    }
+    else if(pos==1){
+        head->prev=newnode;
+        newnode->next=head;
+        head=newnode;
+        return;
+    }
+    else{
+    for(int i=1;i<pos-1;i++){
+        temp=temp->next;
+        if(temp==NULL){
+            printf("Invalid position\n");
+            return;
+        }
+    }
+    }
+    newnode->next=temp->next;
+    newnode->prev=temp;
+    temp->next=newnode;
+    temp->next->prev=newnode;
+}
+
+void pop(){
+    struct node *temp=head;
+    if(head==NULL){
+        printf("Empty list\n");
+    }
+    else{
+        head=head->next;
+        head->prev=NULL;
+        free(temp);
+    }
+}
+
+void end(){
+    struct node *temp=head,*previous=NULL;
+    if(head==NULL){
+        printf("Empty list");
+    }
+    else if(head->next==NULL){
+        free(head);
+        head=NULL;
+    }
+    else{
+        while(temp->next!=NULL){
+            previous=temp;
+            temp=temp->next;
+        }
+        previous->next=NULL;
+        free(temp);
+    }
+}
+void deletepos()
+{
+    struct node *temp=head;
+    int num;
+    if(head==NULL){
+        printf("Empty list\n");
+        return;
+    }
+    printf("Enter data to be deleted from the list:");
+    scanf("%d",&num);
+    while(temp !=NULL && temp->data!=num){
+        temp=temp->next;
+    }
+    if(temp==NULL){
+        printf("Element not found in the list\n");
+        return;
+    }
+    else{
+    if(temp->prev==NULL && temp->next==NULL){
+        head=NULL;
+    }
+    else if(temp->prev==NULL){
+        head=head->next;
+        head->prev=NULL;
+    }
+    else if(temp->next==NULL){
+        temp->prev->next=NULL;
+        temp->prev=NULL;
+    }
+    else{
+        temp->prev->next=temp->next;
+        temp->next->prev=temp->prev;
+        temp->prev=NULL;
+        temp->next=NULL;
+    }
+    printf("%d is removed from the list\n",temp->data);
+    free(temp);
+    }
+}
+
+
+void display()
+{
+    struct node *temp=head;
+    if(temp==NULL)
+        printf("no elements to display\n");
+    while(temp!=NULL){
+        printf("%d\n",temp->data);
+        temp=temp->next;
+    }
+}
+
+int main()
+{
+    int ch,num;
+    
+    printf("\nenter \n1 to push \n2 to append \n3 to insert at a position \n\n4 to pop \n5 to delete from end \n6 to delete frpm position \n\n7 to display \n\n0 to exit\n");
+    while(1)
+    {
+       printf("\nchoice:");
+       scanf("%d",&ch);
+       switch(ch)
+       {
+           case 1:
+           printf("enter data:");
+           scanf("%d",&num);
+           push(num);
+           break;
+           case 2:
+           printf("enter data:");
+           scanf("%d",&num);
+           append(num);
+           break;
+           case 3:
+           printf("enter data:");
+           scanf("%d",&num);
+           insert(num);
+           break;
+           case 4:
+           pop();
+           break;
+           case 5:
+           end();
+           break;
+           case 6:
+           deletepos();
+           break;
+           case 7:
+           display();
+           break;
+           case 0:
+           exit(0);
+           break;
+           default:
+           printf("invalid choice entry");
+           break;
+       }
+    }
+return 0;
+}
