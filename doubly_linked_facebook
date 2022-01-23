@@ -1,0 +1,114 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <conio.h>
+#include <malloc.h>
+
+struct node *head;
+struct node{
+    struct node *prev;
+    char name[20];
+    long int phone_no;
+    int likes;
+    struct node *next;
+};
+
+struct node* create(){
+    struct node* newnode;
+    newnode=(struct node*)malloc(sizeof(struct node));
+    printf("Enter \nFacebook ID:");
+    scanf("%s",newnode->name);
+    printf("Mobile number:");
+    scanf("%ld",&newnode->phone_no);
+    printf("Number of likes:");
+    scanf("%d",&newnode->likes);
+    newnode->prev=NULL;
+    newnode->next=NULL;
+    return newnode;
+}
+
+
+void insert(){
+    struct node *newnode,*temp=head;
+    newnode=create();
+    if(head==NULL)
+        head=newnode;
+    else{
+        while(temp->next!=NULL){
+            temp=temp->next;
+        }
+        newnode->prev=temp;
+        temp->next=newnode;
+        
+    }
+}
+
+
+
+void highest(){
+    struct node *temp,*ptr=NULL;
+    int max=0;
+    if(head==NULL){
+        printf("List is empty");
+    }
+    else if(head->next==NULL){
+        printf("Name:%s\nMobile_number:%ld\nLikes:%d\n",head->name,head->phone_no,head->likes);
+    }
+    else{
+        temp=head;
+        while(temp!=NULL)
+        {
+            if(temp->likes>=max){
+                ptr=temp;
+                max=temp->likes;
+            }
+            temp=temp->next;
+        }
+        printf("The one with highest likes\n");
+        printf("Name:%s\nMobile_number:%ld\nLikes:%d\n",ptr->name,ptr->phone_no,ptr->likes);
+    }
+}
+
+void display()
+{
+    struct node *temp=head;
+    if(temp==NULL)
+        printf("no elements to display\n");
+    while(temp!=NULL){
+        printf("Name:%s\n",temp->name);
+        printf("Mobile number:%ld\n",temp->phone_no);
+        printf("Number of likes:%d\n",temp->likes);
+        printf("\n");
+        temp=temp->next;
+    }
+}
+
+int main()
+{
+    int ch;
+    
+    printf("\nenter \n1 to insert \n2 to find one with highest likes \n3 to display\n0 to exit\n");
+    while(1)
+    {
+       printf("\nchoice:");
+       scanf("%d",&ch);
+       switch(ch)
+       {
+           case 1:
+           insert();
+           break;
+           case 2:
+           highest();
+           break;
+           case 3:
+           display();
+           break;
+           case 0:
+           exit(0);
+           break;
+           default:
+           printf("invalid choice entry");
+           break;
+       }
+    }
+return 0;
+}
