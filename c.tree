@@ -1,0 +1,150 @@
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include <malloc.h>
+struct node{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+
+struct node* create(){
+    struct node *temp;
+    temp=(struct node*)malloc(sizeof(struct node));
+    printf("Enter data:");
+    scanf("%d",&temp->data);
+    temp->left=NULL;
+    temp->right=NULL;
+    return temp;
+}
+
+void insert(struct node **root,struct node *temp){
+    if((*root)==NULL){
+        (*root)=temp;
+        return;
+    }
+    else if(temp->data==(*root)->data){
+        printf("data is already present\n");
+        return;
+    }
+    else if(temp->data > (*root)->data){
+        insert(&((*root)->right),temp);
+    }
+    else{
+        insert(&((*root)->left),temp);
+    }
+}
+
+void inorder(struct node *root){
+    if(root!=NULL){
+        inorder(root->left);
+        printf("%d\t",root->data);
+        inorder(root->right);
+    }
+}
+
+void postorder(struct node *root){
+    if(root!=NULL){
+        postorder(root->left);
+        postorder(root->right);
+        printf("%d\t",root->data);
+    }
+}
+
+void preorder(struct node *root){
+    if(root!=NULL){
+        printf("%d\t",root->data);
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+
+struct node* findmin(struct node *root){
+    while(root->left != NULL)
+        root=root->left;
+    return root;
+}
+
+void delete(struct node **root,int key){
+    struct node *temp;
+    if(key > (*root)->data){
+        delete(&((*root)->right),key);
+    }
+    else if(key < (*root)->data){
+        delete(&((*root)->left),key);
+    }
+    else{
+        //no child node
+        if((*root)->right==NULL && (*root)->left==NULL){
+            free(*root);
+            *root=NULL;
+        }
+        
+        //one child node
+        else if((*root)->left==NULL){
+            temp=(*root);
+            (*root)=(*root)->right;
+            free(temp);
+        }
+        else if((*root)->right==NULL){
+            temp=(*root);
+            (*root)=(*root)->left;
+            free(temp);
+        }
+        
+        //having two children
+        else{
+            temp=findmin((*root)->right);
+            ((*root)->data)=temp->data;
+            delete(&((*root)->right),temp->data);
+        }
+            
+    }
+}
+
+int main(){
+    struct node *temp,*root=NULL;
+    int choice,key;
+    printf("creating root node of a tree\n");
+    root=create();
+    while(1){
+        printf("\n\nEnter 1.Insert \n2.Inorder traversal \n3.Postorder traversal \n4.preorder traversal \n5.Delete \n6.Exit");
+        printf("\nChoice:");
+        scanf("%d",&choice);
+        switch(choice){
+            case 1:
+            temp=create();
+            insert(&root,temp);
+            break;
+            
+            case 2:
+            printf("Inorder traversal\n");
+            inorder(root);
+            break;
+            
+            case 3:
+            printf("postorder traversal\n");
+            postorder(root);
+            break;
+            
+            case 4:
+            printf("preorder traversal\n");
+            preorder(root);
+            break;
+            
+            case 5:
+            printf("Enter element to be deleted:");
+            scanf("%d",&key);
+            delete(&root,key);
+            break;
+            
+            case 6:
+            exit(0);
+            break;
+            
+            default:
+            printf("invalid choice");
+            break;
+        }
+    }
+}
