@@ -1,0 +1,162 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <malloc.h>
+#include <conio.h>
+struct student *head=NULL;
+struct student{
+    int id;
+    struct student *next;
+};
+
+struct student* create()
+{
+    struct student *newstudent;
+    newstudent=(struct student*)malloc(sizeof(struct student));
+    return newstudent;
+}
+
+//insertion in the beginning
+void push(int studid)
+{
+    struct student *newstudent,*temp=head;
+    newstudent=create();
+    newstudent->id=studid;
+    newstudent->next=NULL;
+    if(head==NULL){
+        head=newstudent;
+        newstudent->next=head;
+    }
+    else{
+        while(temp->next!=head){
+            temp=temp->next;
+        }
+        newstudent->next=head;
+        head=newstudent;
+        temp->next=head;
+    }
+    printf("%d is inserted at the beginning\n",head->id);
+}
+
+//deletion from the front
+void pop()
+{
+    struct student *temp;
+    if(head==NULL){
+        printf("Empty list");
+        return;
+    }
+    else if(head->next==head){
+        free(head);
+        head=NULL;
+        return;
+    }
+    else{
+        temp=head;
+        while(temp->next!=head){
+            temp=temp->next;
+        }
+        temp->next=head->next;
+        free(head);
+        head=temp->next;
+    }
+}
+
+//insertion at the end 
+void append(int studid)
+{
+    struct student *newstudent,*temp=head;
+    newstudent=create();
+    newstudent->id=studid;
+    newstudent->next=NULL;
+    if(head==NULL){
+      head=newstudent;
+      newstudent->next=head;
+    }
+    else{
+        temp=head;
+        while(temp->next!=head)
+            temp=temp->next;
+    temp->next=newstudent;
+    newstudent->next=head;
+    }
+    printf("%d is inserted at the end\n",newstudent->id);
+}
+
+//deletion at the end
+void end()
+{
+    struct student *prev,*temp;
+    if(head==NULL)
+        printf("Empty list");
+    else if(head->next==NULL){
+        free(head);
+        head=NULL;
+    }
+    else{
+        temp=head;
+        while(temp->next!=head){
+            prev=temp;
+            temp=temp->next;
+        }
+        prev->next=head;
+        free(temp);
+    }
+}
+
+
+void display()
+{
+    struct student *temp=head;
+    if(temp==NULL){
+        printf("no elements to display\n");
+        return;
+    }
+    while(temp->next!=head){
+        printf("%d\n",temp->id);
+        temp=temp->next;
+    }
+    printf("%d",temp->id);
+    
+    
+}
+
+int main()
+{
+    int ch,student_id;
+    
+    printf("\nenter \n1 to push \n2 to append \n3 to pop \n4 to end \n5 to display \n0 to exit\n");
+    while(1)
+    {
+       printf("\nchoice:");
+       scanf("%d",&ch);
+       switch(ch)
+       {
+           case 1:
+           printf("enter id:");
+           scanf("%d",&student_id);
+           push(student_id);
+           break;
+           case 2:
+           printf("enter id:");
+           scanf("%d",&student_id);
+           append(student_id);
+           break;
+           case 3:
+           pop();
+           break;
+           case 4:
+           end();
+           break;
+           case 5:
+           display();
+           break;
+           case 0:
+           exit(0);
+           break;
+           default:
+           printf("invalid choice entry");
+           break;
+       }
+    }
+return 0;
+}
